@@ -4,9 +4,7 @@ on:
   push:
     branches: [master]
     paths:
-      - "**.py" # Trigger on Python files, adjust if you use a different language
-      - "**.java"
-      - "**.cpp"
+      - "**.py"
 
 jobs:
   create-blog-post:
@@ -18,7 +16,7 @@ jobs:
       - name: Checkout LeetCode repo
         uses: actions/checkout@v3
         with:
-          path: leetcode
+          path: leetcode-repo
 
       - name: Checkout blog repo
         uses: actions/checkout@v3
@@ -32,8 +30,14 @@ jobs:
         with:
           python-version: "3.10"
 
+      - name: Create scripts directory and copy script
+        run: |
+          mkdir -p leetcode-repo/.github/scripts
+          cp $GITHUB_WORKSPACE/leetcode-repo/create_blog_post.py leetcode-repo/.github/scripts/
+
       - name: Create blog post
         run: |
+          cd leetcode-repo
           python .github/scripts/create_blog_post.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
