@@ -79,7 +79,7 @@ def create_blog_post(problem_info, solution_file):
         template = f"""---
 title: "LeetCode {problem_info['number']}: {problem_info['title']}"
 date: {today}
-summary: "Leetcode problem {problem_info['number']}: {problem_info['title']} solution in Python"
+summary: "Leetcode {problem_info['number']}: {problem_info['title']} solution in Python"
 tags: ["leetcode", "algorithms", "{problem_info['difficulty'].lower()}", "python"]
 draft: false
 ---

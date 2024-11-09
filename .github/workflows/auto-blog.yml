@@ -4,7 +4,8 @@ on:
   push:
     branches: [master]
     paths:
-      - "**.py" # Trigger on Python file changes
+      - "**.py"
+      # - "!.github/scripts/create_blog_post.py"
 
 jobs:
   create-blog-post:
