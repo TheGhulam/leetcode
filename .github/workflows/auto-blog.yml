@@ -2,7 +2,7 @@ name: Auto Blog LeetCode Solutions
 
 on:
   push:
-    branches: [main]
+    branches: [master]
     paths:
       - "**.py" # Trigger on Python files, adjust if you use a different language
       - "**.java"
