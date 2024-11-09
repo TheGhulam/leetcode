@@ -20,7 +20,18 @@ jobs:
           path: leetcode-repo
           fetch-depth: 2 # Fetch the last two commits for diff comparison
 
+      - name: Check if files were added
+        id: check_added
+        run: |
+          cd leetcode-repo
+          # Get the list of added files only (status A)
+          ADDED_FILES=$(git diff-tree --no-commit-id --name-status -r HEAD | grep "^A.*\.py$" || true)
+          if [ ! -z "$ADDED_FILES" ]; then
+            echo "new_files=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Checkout blog repo
+        if: steps.check_added.outputs.new_files == 'true'
         uses: actions/checkout@v3
         with:
           repository: ${{ github.repository_owner }}/v2.gahmed
@@ -28,11 +39,13 @@ jobs:
           path: blog-repo
 
       - name: Set up Python
+        if: steps.check_added.outputs.new_files == 'true'
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
       - name: Create blog post
+        if: steps.check_added.outputs.new_files == 'true'
         run: |
           cd leetcode-repo
           python .github/scripts/create_blog_post.py
@@ -40,6 +53,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check for changes
+        if: steps.check_added.outputs.new_files == 'true'
         id: check_changes
         run: |
           cd blog-repo
@@ -48,7 +62,7 @@ jobs:
           fi
 
       - name: Commit and push blog post
-        if: steps.check_changes.outputs.changes == 'true'
+        if: steps.check_added.outputs.new_files == 'true' && steps.check_changes.outputs.changes == 'true'
         run: |
           cd blog-repo
           git config user.name "github-actions[bot]"
