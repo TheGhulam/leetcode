@@ -4,8 +4,7 @@ on:
   push:
     branches: [master]
     paths:
-      - "**.py"
-      - "!.github/scripts/create_blog_post.py"
+      - "solutions/**/*.py"
 
 jobs:
   create-blog-post:
