@@ -1,0 +1,48 @@
+name: Auto Blog LeetCode Solutions
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**.py" # Trigger on Python files, adjust if you use a different language
+      - "**.java"
+      - "**.cpp"
+
+jobs:
+  create-blog-post:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout LeetCode repo
+        uses: actions/checkout@v3
+        with:
+          path: leetcode
+
+      - name: Checkout blog repo
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository_owner }}/V2.GAHMED
+          token: ${{ secrets.BLOG_REPO_TOKEN }}
+          path: blog-repo
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Create blog post
+        run: |
+          python .github/scripts/create_blog_post.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and push blog post
+        run: |
+          cd blog-repo
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add content/posts/
+          git commit -m "Add new LeetCode solution blog post" || exit 0
+          git push
