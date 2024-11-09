@@ -97,19 +97,6 @@ Here's my Python solution to this problem:
 ```python
 {problem_info['solution']}
 ```
-
-## Explanation
-
-[Add your explanation of the solution approach here]
-
-## Time and Space Complexity
-
-- Time Complexity: 
-- Space Complexity: 
-
-## Key Takeaways
-
-[Add your learning points and insights here]
 """
         
         # Create blog post file
