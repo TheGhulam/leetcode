@@ -5,7 +5,7 @@ on:
     branches: [master]
     paths:
       - "**.py"
-      # - "!.github/scripts/create_blog_post.py"
+      - "!.github/scripts/create_blog_post.py"
 
 jobs:
   create-blog-post:
