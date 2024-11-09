@@ -43,7 +43,6 @@ def create_blog_post(problem_info):
     
     template = f"""---
 title: "LeetCode {problem_info['number']}: {problem_info['title']}"
-summary: "Solution for LeetCode problem {problem_info['number']}: {problem_info['title']}"
 date: {today}
 tags: ["leetcode", "algorithms", "{problem_info['difficulty'].lower()}"]
 draft: false
@@ -78,7 +77,7 @@ Here's my solution to this problem:
 """
     
     # Create blog post file
-    post_dir = Path('V2.GAHMED/src/content/blog')
+    post_dir = Path('../blog-repo/src/content/blog')
     post_dir.mkdir(parents=True, exist_ok=True)
     post_file = post_dir / f"{today}-{slug}.md"
     
@@ -95,7 +94,7 @@ if __name__ == "__main__":
         exit(0)
     
     # Extract problem information
-    problem_info = extract_problem_info(f"leetcode/{solution_file}")
+    problem_info = extract_problem_info(solution_file)
     
     # Create and save blog post
     post_file = create_blog_post(problem_info)
