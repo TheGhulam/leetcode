@@ -1,5 +1,4 @@
 import os
-import json
 import re
 import requests
 from bs4 import BeautifulSoup
@@ -56,12 +55,16 @@ def get_difficulty_from_path(file_path):
     return "Medium"  # default
 
 def update_readme():
-    # Get list of new files from environment variable
-    new_files = json.loads(os.environ.get('ADDED_FILES', '[]'))
-    
-    if not new_files:
+    # Read the list of files from the temporary file
+    files_path = os.environ.get('LEETCODE_FILES')
+    if not files_path or not os.path.exists(files_path):
+        print("No files to process")
         return
         
+    with open(files_path, 'r') as f:
+        new_files = [line.strip() for line in f if line.strip()]
+    
+    # Read current README content
     with open('README.md', 'r', encoding='utf-8') as f:
         content = f.read()
         
