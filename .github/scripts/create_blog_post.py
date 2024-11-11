@@ -76,10 +76,10 @@ def get_problem_details(problem_slug):
             'titleSlug': problem_data.get('titleSlug'),
             'difficulty': problem_data.get('difficulty'),
             'question': problem_data.get('question'),
-            'exampleTC': problem_data.get('exampleTestcases')
-            'tags': problem_data.get('topicTags')
-            'likes': problem_data.get('likes')
-            'dislikes': problem_data.get('dislikes')
+            'exampleTC': problem_data.get('exampleTestcases'),
+            'tags': problem_data.get('topicTags'),
+            'likes': problem_data.get('likes'),
+            'dislikes': problem_data.get('dislikes'),
         }
     except requests.RequestException as e:
         print(f"Error fetching problem details from API: {e}")
