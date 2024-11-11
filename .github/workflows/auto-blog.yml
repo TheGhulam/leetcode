@@ -19,13 +19,13 @@ jobs:
           path: leetcode-repo
           fetch-depth: 2 # Fetch the last two commits for diff comparison
 
-      - name: Check if files were added
+      - name: Check if files were added or modified
         id: check_added
         run: |
           cd leetcode-repo
-          # Get the list of added files only (status A)
-          ADDED_FILES=$(git diff-tree --no-commit-id --name-status -r HEAD | grep "^A.*\.py$" || true)
-          if [ ! -z "$ADDED_FILES" ]; then
+          # Get the list of added (A) and modified (M) files
+          CHANGED_FILES=$(git diff-tree --no-commit-id --name-status -r HEAD | grep "^[AM].*\.py$" || true)
+          if [ ! -z "$CHANGED_FILES" ]; then
             echo "new_files=true" >> $GITHUB_OUTPUT
           fi
 

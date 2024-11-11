@@ -1,5 +1,4 @@
 #Problem 118: Pascal's Triangle
-#Difficulty: Easy
 
 class Solution:
     def generate(self, numRows: int) -> List[List[int]]:
