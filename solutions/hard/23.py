@@ -1,7 +1,4 @@
 #Problem 23: Merge k Sorted Lists
-#Difficulty: Hard
-#URL: https://leetcode.com/problems/merge-k-sorted-lists/
-
 
 # Definition for singly-linked list.
 # class ListNode:

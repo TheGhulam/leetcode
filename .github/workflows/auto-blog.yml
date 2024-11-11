@@ -67,7 +67,7 @@ jobs:
           fi
 
       - name: Commit and push blog post
-        if: steps.check_added.outputs.new_files == 'true'
+        if: steps.check_added.outputs.new_files == 'true' && steps.check_changes.outputs.changes == 'true'
         run: |
           cd blog-repo
           git config user.name "github-actions[bot]"
