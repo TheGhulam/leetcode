@@ -130,7 +130,7 @@ draft: false
 
 **Rating:** {problem_info['likes'] / (problem_info['likes'] + problem_info['dislikes']) * 100:.2f}%
 
-## Solution Approach
+## Solution
 
 Here's my Python solution to this problem:
 
