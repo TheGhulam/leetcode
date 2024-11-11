@@ -20,8 +20,3 @@ class Solution:
             else:
                 l = mid + 1
         return False
-
-if __name__ == '__main__':
-    s = Solution()
-    print(s.searchMatrix([[1,3,5,7],[10,11,16,20],[23,30,34,60]], 3))  # True
-    print(s.searchMatrix([[1,3,5,7],[10,11,16,20],[23,30,34,60]], 13))  # False
