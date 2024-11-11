@@ -4,6 +4,8 @@ import re
 from datetime import datetime
 from pathlib import Path
 import subprocess
+import requests
+import json
 
 def get_latest_solution_file():
     """Get the most recently modified solution file."""
@@ -33,48 +35,73 @@ def get_latest_solution_file():
         print(f"Unexpected error in get_latest_solution_file: {e}")
         return None
 
-def extract_problem_info(file_path):
-    """Extract problem number, title, and difficulty from file comments."""
+def extract_problem_slug(file_path):
+    """Extract just the problem slug from the top comment following this format:
+    #Problem 1122: Relative Sort Array
+    """
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
             
-        # Enhanced patterns with more flexible whitespace handling
-        problem_pattern = r'#\s*Problem\s*(?:Number)?\s*:?\s*(\d+)\s*[:-]\s*(.+?)(?=\n|$)'
-        difficulty_pattern = r'#\s*Difficulty\s*:?\s*(\w+)(?=\n|$)'
+        # Extract the problem slug from the file name
+        file_name = os.path.basename(file_path)
+        slug = file_name.split('.')[0]
+
+        # Extract the problem slug from the top comment
+        match = re.search(r'#Problem \d+: (.+)', content)
+        if match:
+            slug = match.group(1).replace(' ', '-').lower()
+
+        return slug
+    except Exception as e:
+        print(f"Error extracting problem slug: {e}")
+        return None
+
+def get_problem_details(problem_slug):
+    """Fetch problem details from LeetCode API."""
+    try:
+        # Construct the API URL
+        api_url = "https://alfa-leetcode-api.onrender.com/select"
         
-        problem_match = re.search(problem_pattern, content, re.IGNORECASE)
-        difficulty_match = re.search(difficulty_pattern, content, re.IGNORECASE)
+        # Make the API request
+        response = requests.get(f"{api_url}?titleSlug={problem_slug}")
+        response.raise_for_status()
         
-        if not problem_match:
-            print(f"Warning: Could not extract problem number and title from {file_path}")
-        
-        number = problem_match.group(1) if problem_match else "Unknown"
-        title = problem_match.group(2).strip() if problem_match else Path(file_path).stem
-        difficulty = difficulty_match.group(1) if difficulty_match else "Unknown"
+        # Parse the response
+        problem_data = response.json()
         
         return {
-            'number': number,
-            'title': title,
-            'difficulty': difficulty,
-            'solution': content
+            'number': problem_data.get('questionFrontendId'),
+            'title': problem_data.get('questionTitle'),
+            'titleSlug': problem_data.get('titleSlug'),
+            'difficulty': problem_data.get('difficulty'),
+            'question': problem_data.get('question'),
+            'exampleTC': problem_data.get('exampleTestcases')
+            'tags': problem_data.get('topicTags')
+            'likes': problem_data.get('likes')
+            'dislikes': problem_data.get('dislikes')
         }
+    except requests.RequestException as e:
+        print(f"Error fetching problem details from API: {e}")
+        return None
     except Exception as e:
-        print(f"Error extracting problem info from {file_path}: {e}")
+        print(f"Unexpected error getting problem details: {e}")
         return None
 
 def create_blog_post(problem_info, solution_file):
     """Generate a markdown blog post from the problem info."""
     try:
         today = datetime.now().strftime('%Y-%m-%d')
+        
         # Create a URL-friendly slug
-        # Clean the title for the URL slug
-        clean_title = re.sub(r'[^\w\s-]', '', problem_info['title'].lower())
-        slug = f"leetcode-{problem_info['number']}-{clean_title.replace(' ', '-')}"
+        slug = f"leetcode-{problem_info['number']}-{problem_info['titleSlug']}"
         
         # Generate leetcode problem URL
-        leetcode_slug = problem_info['title'].lower().replace(' ', '-')
-        leetcode_url = f"https://leetcode.com/problems/{leetcode_slug}"
+        leetcode_url = f"https://leetcode.com/problems/{problem_info['titleSlug']}"
+        
+        # Read the solution content
+        with open(solution_file, 'r', encoding='utf-8') as f:
+            solution_content = f.read()
         
         template = f"""---
 title: "LeetCode {problem_info['number']}: {problem_info['title']}"
@@ -88,14 +115,23 @@ draft: false
 
 [LeetCode Problem {problem_info['number']}]({leetcode_url})
 
+{problem_info['question']}
+
+**Example Test Cases:**
+```
+{problem_info['exampleTC']}
+```
+
 **Difficulty:** {problem_info['difficulty']}
+**Tags:** {', '.join(problem_info['tags'])}
+**Like/Dislike Ratio:** {problem_info['likes']} / {problem_info['dislikes']}
 
 ## Solution Approach
 
 Here's my Python solution to this problem:
 
 ```python
-{problem_info['solution']}
+{solution_content}
 ```
 """
         
@@ -122,9 +158,16 @@ def main():
         
         print(f"Processing solution file: {solution_file}")
         
-        # Extract problem information
-        problem_info = extract_problem_info(solution_file)
+        # Extract problem number from file
+        problem_slug= extract_problem_slug(solution_file)
+        if not problem_slug:
+            print("Could not determine problem slug")
+            return
+            
+        # Fetch problem details from API
+        problem_info = get_problem_details(problem_slug)
         if not problem_info:
+            print("Could not fetch problem details from API")
             return
         
         # Create and save blog post
