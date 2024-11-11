@@ -43,14 +43,12 @@ def extract_problem_slug(file_path):
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
             
-        # Extract the problem slug from the file name
-        file_name = os.path.basename(file_path)
-        slug = file_name.split('.')[0]
-
         # Extract the problem slug from the top comment
         match = re.search(r'#Problem \d+: (.+)', content)
         if match:
             slug = match.group(1).replace(' ', '-').lower()
+
+        print(f"Extracted problem slug: {slug}")
 
         return slug
     except Exception as e:
