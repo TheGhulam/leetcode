@@ -86,6 +86,10 @@ def get_problem_details(problem_slug):
             'likes': problem_data.get('likes'),
             'dislikes': problem_data.get('dislikes'),
         }
+
+        # Logging
+        print(f"Problem Details: {problem_data}")
+
     except requests.RequestException as e:
         print(f"Error fetching problem details from API: {e}")
         return None
