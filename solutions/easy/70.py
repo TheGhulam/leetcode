@@ -1,5 +1,4 @@
 # Problem 70: Climbing Stairs
-# Difficulty: Easy
 
 class Solution:
     def climbStairs(self, n: int) -> int:
