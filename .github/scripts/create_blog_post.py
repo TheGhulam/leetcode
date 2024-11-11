@@ -69,6 +69,11 @@ def get_problem_details(problem_slug):
         
         # Parse the response
         problem_data = response.json()
+
+        tags = []
+        topic_tags = problem_data.get('topicTags', [])
+        if isinstance(topic_tags, list):
+            tags = [tag.get('name', '').lower() for tag in topic_tags if isinstance(tag, dict)]
         
         return {
             'number': problem_data.get('questionFrontendId'),
@@ -77,7 +82,7 @@ def get_problem_details(problem_slug):
             'difficulty': problem_data.get('difficulty'),
             'question': problem_data.get('question'),
             'exampleTC': problem_data.get('exampleTestcases'),
-            'tags': problem_data.get('topicTags'),
+            'tags': tags
             'likes': problem_data.get('likes'),
             'dislikes': problem_data.get('dislikes'),
         }
