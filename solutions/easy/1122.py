@@ -1,6 +1,4 @@
 #Problem 1122: Relative Sort Array
-#Difficulty: Easy
-#URL: https://leetcode.com/problems/relative-sort-array/
 
 from typing import List
 
