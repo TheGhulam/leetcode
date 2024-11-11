@@ -82,7 +82,7 @@ def get_problem_details(problem_slug):
             'difficulty': problem_data.get('difficulty'),
             'question': problem_data.get('question'),
             'exampleTC': problem_data.get('exampleTestcases'),
-            'tags': tags
+            'tags': tags,
             'likes': problem_data.get('likes'),
             'dislikes': problem_data.get('dislikes'),
         }

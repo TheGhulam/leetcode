@@ -1,6 +1,4 @@
 #Problem 53: Maximum Subarray
-#Difficulty: Medium
-#URL: https://leetcode.com/problems/maximum-subarray/
 
 from typing import List
 
