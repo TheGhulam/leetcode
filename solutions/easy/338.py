@@ -1,5 +1,4 @@
 #Problem 338: Counting Bits
-#Difficulty: Easy
 
 class Solution:
     def countBits(self, num: int) -> List[int]:
