@@ -124,14 +124,11 @@ draft: false
 
 {problem_info['question']}
 
-**Example Test Cases:**
-```
-{problem_info['exampleTC']}
-```
-
 **Difficulty:** {problem_info['difficulty']}
+
 **Tags:** {', '.join(problem_info['tags'])}
-**Like/Dislike Ratio:** {problem_info['likes']} / {problem_info['dislikes']}
+
+**Rating:** {problem_info['likes'] / (problem_info['likes'] + problem_info['dislikes']) * 100:.2f}%
 
 ## Solution Approach
 
