@@ -48,10 +48,11 @@ def extract_problem_slug(file_path):
         match = re.search(r'#Problem \d+: (.+)', content)
         if match:
             slug = match.group(1).replace(' ', '-').lower()
-
-        print(f"Extracted problem slug: {slug}")
-
-        return slug
+            print(f"Extracted problem slug: {slug}")
+            return slug
+        else:
+            print("No problem slug found in file")
+            return None
     except Exception as e:
         print(f"Error extracting problem slug: {e}")
         return None
