@@ -1,5 +1,7 @@
 #Problem 2461: Maximum Sum of Distinct Subarrays With Length K
 
+from typing import List 
+
 class Solution:
     def maximumSubarraySum(self, nums: List[int], k: int) -> int:
         o = 0
@@ -20,3 +22,14 @@ class Solution:
                 o = max(o, s)
         
         return o
+
+
+if __name__ == "__main__":
+    s = Solution()
+    print(s.maximumSubarraySum([1,2,1,2,6,7,5,1], 2))  # 13
+    print(s.maximumSubarraySum([1,2,1,2,6,7,5,1], 3))  # 18
+    print(s.maximumSubarraySum([1,2,1,2,6,7,5,1], 4))  # 21
+    print(s.maximumSubarraySum([1,2,1,2,6,7,5,1], 5))  # 22
+    print(s.maximumSubarraySum([1,2,1,2,6,7,5,1], 6))  # 0
+    print(s.maximumSubarraySum([1,2,1,2,6,7,5,1], 7))  # 0
+    print(s.maximumSubarraySum([1,2,3,4,6,7,5,1], 7))  # 28
