@@ -6,6 +6,7 @@ from pathlib import Path
 import subprocess
 import requests
 import json
+from complexity_analyzer import analyze_leetcode_solution
 
 def get_latest_solution_file():
     """Get the most recently modified solution file."""
@@ -109,6 +110,9 @@ def create_blog_post(problem_info, solution_file):
         # Read the solution content
         with open(solution_file, 'r', encoding='utf-8') as f:
             solution_content = f.read()
+
+        # Analyze the solution for complexity
+        complexity_info = analyze_leetcode_solution(solution_file)
         
         template = f"""---
 title: "LeetCode {problem_info['number']}: {problem_info['title']}"
@@ -129,6 +133,13 @@ draft: false
 **Tags:** {', '.join(problem_info['tags'])}
 
 **Rating:** {problem_info['likes'] / (problem_info['likes'] + problem_info['dislikes']) * 100:.2f}%
+
+## Solution Complexity
+
+- Time Complexity: {complexity_info['time_complexity']}
+- Space Complexity: {complexity_info['space_complexity']}
+
+{complexity_info['explanation']}
 
 ## Solution
 
