@@ -137,9 +137,6 @@ draft: false
 
 ## Solution Complexity
 
-- Time Complexity: {complexity_info['time_complexity']}
-- Space Complexity: {complexity_info['space_complexity']}
-
 {complexity_info['explanation']}
 
 ## Solution
