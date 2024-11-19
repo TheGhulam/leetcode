@@ -25,5 +25,3 @@ if __name__ == "__main__":
     print(Solution().generate(numRows)) # [[1]]
     numRows = 2
     print(Solution().generate(numRows)) # [[1],[1,1]]
-    numRows = 3
-    print(Solution().generate(numRows)) # [[1],[1,1],[1,2,1]]
