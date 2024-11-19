@@ -18,4 +18,3 @@ if __name__ == "__main__":
 
     result = solution.climbStairs(n)
     print(f"Number of ways to climb {n} stairs: {result}")
-    print()
