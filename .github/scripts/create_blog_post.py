@@ -135,7 +135,7 @@ draft: false
 
 **Rating:** {problem_info['likes'] / (problem_info['likes'] + problem_info['dislikes']) * 100:.2f}%
 
-## Solution Complexity
+## Complexity Analysis
 
 {complexity_info['explanation']}
 
