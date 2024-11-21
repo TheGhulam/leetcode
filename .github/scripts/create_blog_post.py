@@ -103,7 +103,7 @@ def create_blog_post(problem_info, solution_file):
         today = datetime.now().strftime('%Y-%m-%d')
         
         # Create a URL-friendly slug
-        slug = f"leetcode-{problem_info['number']}-{problem_info['titleSlug']}"
+        slug = f"lc-{problem_info['number']}-{problem_info['titleSlug']}"
         
         # Generate leetcode problem URL
         leetcode_url = f"https://leetcode.com/problems/{problem_info['titleSlug']}"
