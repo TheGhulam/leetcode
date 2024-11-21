@@ -116,42 +116,42 @@ def create_blog_post(problem_info, solution_file):
         complexity_info = analyze_leetcode_solution(solution_file)
         
         template = f"""---
-title: "LeetCode {problem_info['number']}: {problem_info['title']}"
-date: {today}
-summary: "Leetcode {problem_info['number']}: {problem_info['title']} solution in Python"
-tags: ["leetcode", "algorithms", "{problem_info['difficulty']}", "python"]
-draft: false
----
+        title: "LeetCode {problem_info['number']}: {problem_info['title']}"
+        date: {today}
+        summary: "Leetcode {problem_info['number']}: {problem_info['title']} solution in Python"
+        tags: ["leetcode", "algorithms", "{problem_info['difficulty']}", "python"]
+        draft: false
+        ---
 
-## Problem Description
+        ## Problem Description
 
-[LeetCode Problem {problem_info['number']}]({leetcode_url})
+        [LeetCode Problem {problem_info['number']}]({leetcode_url})
 
-{problem_info['question']}
+        {problem_info['question']}
 
-**Difficulty:** {problem_info['difficulty']}
+        **Difficulty:** {problem_info['difficulty']}
 
-**Tags:** {', '.join(problem_info['tags'])}
+        **Tags:** {', '.join(problem_info['tags'])}
 
-**Rating:** {problem_info['likes'] / (problem_info['likes'] + problem_info['dislikes']) * 100:.2f}%
+        **Rating:** {problem_info['likes'] / (problem_info['likes'] + problem_info['dislikes']) * 100:.2f}%
 
-## Complexity Analysis
+        ## Complexity Analysis
 
-{complexity_info['explanation']}
+        {complexity_info['explanation']}
 
-## Solution
+        ## Solution
 
-Here's my Python solution to this problem:
+        Here's my Python solution to this problem:
 
-```python
-{solution_content}
-```
-"""
+        ```python
+        {solution_content}
+        ```
+        """
         
         # Create blog post file
         post_dir = Path('../blog-repo/src/content/blog')
         post_dir.mkdir(parents=True, exist_ok=True)
-        post_file = post_dir / f"{today}-{slug}.md"
+        post_file = post_dir / f"{today}-{slug}.mdx"
         
         with open(post_file, 'w', encoding='utf-8') as f:
             f.write(template)

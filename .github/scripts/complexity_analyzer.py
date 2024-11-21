@@ -217,8 +217,8 @@ def analyze_leetcode_solution(file_path: str) -> Dict[str, str]:
         # Generate explanation
         explanation = f"""The solution has the following complexity characteristics:
 
-- Time Complexity: {time_complexity}
-- Space Complexity: {space_complexity}
+- Time Complexity: ${time_complexity}$
+- Space Complexity: ${space_complexity}$
 
 Note: This is an automated analysis and may not capture all edge cases or specific algorithmic optimizations."""
         
