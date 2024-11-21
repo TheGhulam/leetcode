@@ -15,6 +15,7 @@ class Solution:
 
         return grid[n][m]
 
+        # If we want to return the subsequence:
         # subsequence = ""
         # r, c = n, m
         # while r > 0 and c > 0:
