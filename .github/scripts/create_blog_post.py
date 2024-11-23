@@ -149,7 +149,7 @@ Here's my Python solution to this problem:
 """
         
         # Create blog post file
-        post_dir = Path('../blog-repo/src/content/blog')
+        post_dir = Path('../blog-repo/src/content/blog/lc')
         post_dir.mkdir(parents=True, exist_ok=True)
         post_file = post_dir / f"{today}-{slug}.mdx"
         
