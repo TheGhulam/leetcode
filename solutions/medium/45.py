@@ -3,7 +3,6 @@
 from typing import List
 
 # Dynamic Programming
-# Time: O(n^2)
 class Solution:
     def jump(self, nums: List[int]) -> int:
         n = len(nums)
@@ -19,7 +18,6 @@ class Solution:
         return dp[n-1]
 
 # Greedy
-# Time: O(n)
 class Solution:
     def jump(self, nums: List[int]) -> int:
         n = len(nums)
