@@ -51,9 +51,13 @@ jobs:
 
       - name: Create blog post
         if: steps.check_added.outputs.new_files == 'true'
+        id: create_post
         run: |
           cd leetcode-repo
-          python .github/scripts/create_blog_post.py
+          python .github/scripts/create_blog_post.py || {
+            echo "::error::Failed to create blog post"
+            exit 1
+          }
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
