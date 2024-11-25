@@ -118,6 +118,10 @@ def create_blog_post(problem_info, solution_file):
             solution_content = f.read()
 
         complexity_info = analyze_leetcode_solution(solution_file)
+
+        all_tags = problem_info['tags'] + [problem_info['difficulty']]
+        formatted_tags = [f'"{tag}"' for tag in all_tags]
+        tags_string = f"[{', '.join(formatted_tags)}]"
         
         # Calculate rating safely
         total_votes = problem_info['likes'] + problem_info['dislikes']
@@ -126,8 +130,8 @@ def create_blog_post(problem_info, solution_file):
         template = f"""---
 title: "LeetCode {problem_info['number']}: {problem_info['title']}"
 date: {today}
+tags: {tags_string}
 summary: "Leetcode {problem_info['number']}: {problem_info['title']} solution in Python"
-tags: ["{', '.join(problem_info['tags'])}", {problem_info['difficulty']}]
 draft: false
 ---
 
