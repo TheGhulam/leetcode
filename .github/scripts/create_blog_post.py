@@ -63,7 +63,7 @@ def get_problem_details(problem_slug, max_retries=3):
             
             if response.status_code == 429:
                 if attempt < max_retries - 1:
-                    wait_time = 2 ** attempt  # Exponential backoff
+                    wait_time = 5 ** attempt  # Exponential backoff
                     print(f"Rate limit hit. Waiting {wait_time} seconds before retry...")
                     time.sleep(wait_time)
                     continue
