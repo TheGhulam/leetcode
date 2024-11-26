@@ -14,5 +14,3 @@ class Solution:
         
         if len(o) > 1: return -1
         return o[0]
-
-        
