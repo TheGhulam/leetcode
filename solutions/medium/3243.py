@@ -1,5 +1,8 @@
 #Problem 3242: Shortest Distance After Road Addition Queries I
 
+from collections import defaultdict, deque
+from typing import List
+
 class Solution:
     def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:
         graph = defaultdict(list)
