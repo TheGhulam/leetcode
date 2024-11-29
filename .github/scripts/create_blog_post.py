@@ -147,10 +147,6 @@ draft: false
 
 **Rating:** {rating:.2f}%
 
-## Complexity Analysis
-
-{complexity_info['explanation']}
-
 ## Solution
 
 Here's my Python solution to this problem:
@@ -158,6 +154,10 @@ Here's my Python solution to this problem:
 ```python
 {solution_content}
 ```
+
+## Complexity Analysis
+
+{complexity_info['explanation']}
 """
         
         post_dir = Path('../blog-repo/src/content/blog/lc')
