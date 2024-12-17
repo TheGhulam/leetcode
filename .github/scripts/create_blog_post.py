@@ -131,6 +131,7 @@ def create_blog_post(problem_info, solution_file):
 title: "LeetCode {problem_info['number']}: {problem_info['title']}"
 date: {today}
 summary: "Leetcode {problem_info['number']}: {problem_info['title']} solution in Python"
+tags: {tags_string}
 draft: false
 ---
 
