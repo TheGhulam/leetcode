@@ -15,9 +15,9 @@ class Solution:
 
         for i in sorted(freq.keys()):
             output.extend([i] * freq[i])
-    
+
         return output
-    
+
 if __name__ == "__main__":
     solution = Solution()
 
